@@ -3,207 +3,547 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Install CodeTracker Pro - 2 Minute Guide</title>
-<meta name="description" content="Install CodeTracker Pro Chrome extension in 2 minutes. Track your LeetCode and HackerRank progress.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>CodeTracker Pro - Track LeetCode & HackerRank Like a Pro</title>
+<meta name="description" content="The ultimate Chrome extension for coders. Track LeetCode & HackerRank progress with streaks, custom reminders, and beautiful analytics.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: #09090B;
-  color: #FAFAFA;
-  min-height: 100vh;
-  overflow-x: hidden;
+
+:root {
+  --bg: #0A0A0F;
+  --bg-2: #12121A;
+  --card: rgba(255,255,255,0.03);
+  --card-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.15);
+  --text: #FAFAFA;
+  --text-2: #A1A1AA;
+  --text-3: #71717A;
+  --primary: #6366F1;
+  --accent: #8B5CF6;
+  --pink: #EC4899;
+  --green: #22C55E;
+  --orange: #F59E0B;
 }
 
-/* Animated background */
-body::before {
-  content: '';
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== ANIMATED MESH GRADIENT BG ===== */
+.mesh-bg {
   position: fixed;
   inset: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(99,102,241,0.15) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(139,92,246,0.15) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(236,72,153,0.08) 0%, transparent 50%);
+  z-index: -2;
+  overflow: hidden;
+}
+.mesh-bg::before,
+.mesh-bg::after {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.3;
+  animation: meshFloat 20s ease-in-out infinite;
+}
+.mesh-bg::before {
+  background: radial-gradient(circle, #6366F1 0%, transparent 70%);
+  top: -300px;
+  left: -200px;
+}
+.mesh-bg::after {
+  background: radial-gradient(circle, #EC4899 0%, transparent 70%);
+  bottom: -300px;
+  right: -200px;
+  animation-delay: -10s;
+}
+@keyframes meshFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(100px, -50px) scale(1.1); }
+  66% { transform: translate(-50px, 100px) scale(0.9); }
+}
+
+/* Grid overlay */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
   z-index: -1;
-  animation: float 20s ease-in-out infinite;
-}
-@keyframes float {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
 }
 
-.container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
-
-/* Header */
-header {
-  text-align: center;
-  padding: 60px 0 40px;
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
-.logo {
-  display: inline-flex;
+
+/* ===== NAV ===== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 20px 0;
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 32px;
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 99px;
 }
-.logo-icon {
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  color: var(--text);
+}
+.nav-logo {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.4);
 }
-.logo-text { font-weight: 700; font-size: 15px; }
-.version {
-  padding: 2px 8px;
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.3);
-  border-radius: 20px;
-  font-size: 11px;
+.nav-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.nav-links a {
+  padding: 8px 16px;
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--card-hover);
+}
+.nav-cta {
+  padding: 8px 18px !important;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+  transition: all 0.3s !important;
+}
+.nav-cta:hover {
+  background: linear-gradient(135deg, var(--accent), var(--pink)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.5) !important;
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 100px 0 80px;
+  text-align: center;
+  position: relative;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
   color: #A5B4FC;
+  margin-bottom: 32px;
+  animation: fadeInDown 0.8s ease;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.5);
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+}
+
+.hero h1 {
+  font-size: clamp(48px, 9vw, 96px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: shimmer 3s linear infinite;
+  background-size: 200% auto;
+}
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-desc {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-2);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  animation: fadeInUp 0.8s ease 0.4s backwards;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.6s backwards;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: inherit;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(99,102,241,0.5);
+}
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+  animation: fadeIn 1s ease 0.8s backwards;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
   font-weight: 600;
 }
 
-h1 {
-  font-size: 64px;
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -3px;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #FAFAFA 0%, #A1A1AA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-h1 span {
-  background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.subtitle {
-  font-size: 20px;
-  color: #A1A1AA;
-  max-width: 500px;
-  margin: 0 auto 40px;
-  line-height: 1.5;
-}
-
-.download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 36px;
-  background: linear-gradient(135deg, #6366F1, #8B5CF6);
-  color: white;
-  text-decoration: none;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: 700;
-  box-shadow: 0 12px 32px rgba(99,102,241,0.4);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.download-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(99,102,241,0.6);
-}
-.download-btn .arrow { font-size: 20px; }
-
-.meta {
-  margin-top: 20px;
-  font-size: 13px;
-  color: #71717A;
-}
-
-/* Steps */
-.steps-section {
+/* ===== FLOATING BROWSER MOCKUP ===== */
+.mockup-section {
   padding: 40px 0 80px;
+  perspective: 1000px;
 }
-.steps-title {
-  text-align: center;
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  margin-bottom: 12px;
+.mockup {
+  max-width: 900px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 40px 80px -20px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 20px 60px -10px rgba(99,102,241,0.3);
+  transform: rotateX(5deg) translateY(0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: floatMockup 6s ease-in-out infinite;
 }
-.steps-subtitle {
+@keyframes floatMockup {
+  0%, 100% { transform: rotateX(5deg) translateY(0); }
+  50% { transform: rotateX(5deg) translateY(-15px); }
+}
+.mockup:hover {
+  transform: rotateX(0deg) translateY(-10px) scale(1.02);
+}
+.mockup-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
+}
+.mockup-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.dot-r { background: #FF5F57; }
+.dot-y { background: #FEBC2E; }
+.dot-g { background: #28C840; }
+.mockup-url {
+  flex: 1;
+  margin-left: 20px;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-3);
+  font-family: 'JetBrains Mono', monospace;
+}
+.mockup-body {
+  padding: 40px;
+  min-height: 400px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(139,92,246,0.05));
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+.mockup-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
   text-align: center;
-  color: #A1A1AA;
-  font-size: 16px;
+}
+.mockup-card-icon { font-size: 32px; margin-bottom: 8px; }
+.mockup-card-val {
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.mockup-card-label {
+  font-size: 10px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.card-1 .mockup-card-val { color: #FD79A8; }
+.card-2 .mockup-card-val { color: #FFEAA7; }
+.card-3 .mockup-card-val { color: #00CEC9; }
+
+/* ===== FEATURES ===== */
+.features {
+  padding: 100px 0;
+}
+.section-header {
+  text-align: center;
   margin-bottom: 60px;
 }
-
-.step {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 24px;
-  padding: 28px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  transition: all 0.3s;
+.section-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #A5B4FC;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.section-desc {
+  color: var(--text-2);
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.feature {
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
-.step::before {
+.feature::before {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #6366F1, #8B5CF6);
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.4s;
 }
-.step:hover {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(99,102,241,0.3);
-  transform: translateX(4px);
+.feature:hover {
+  background: var(--card-hover);
+  transform: translateY(-6px);
 }
-.step:hover::before { opacity: 1; }
-
-.step-number {
+.feature:hover::before {
+  opacity: 1;
+}
+.feature-icon {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #6366F1, #8B5CF6);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 800;
-  flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(99,102,241,0.4);
+  font-size: 28px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+  border: 1px solid rgba(99,102,241,0.2);
+}
+.feature h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.feature p {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-.step-content { flex: 1; padding-top: 4px; }
-.step-title {
-  font-size: 20px;
+/* ===== INSTALL STEPS ===== */
+.install-section {
+  padding: 100px 0;
+  background: linear-gradient(180deg, transparent, rgba(99,102,241,0.03));
+}
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  bottom: 40px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--primary), var(--accent), var(--pink));
+  opacity: 0.3;
+}
+.step-item {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  position: relative;
+}
+.step-number {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  box-shadow: 0 10px 30px rgba(99,102,241,0.4);
+  position: relative;
+  z-index: 2;
+}
+.step-body {
+  flex: 1;
+  padding: 20px 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+.step-body:hover {
+  background: var(--card-hover);
+  border-color: rgba(99,102,241,0.3);
+  transform: translateX(4px);
+}
+.step-body h4 {
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 6px;
 }
-.step-desc {
-  color: #A1A1AA;
+.step-body p {
+  color: var(--text-2);
   font-size: 14px;
-  line-height: 1.6;
   margin-bottom: 12px;
 }
 .step-code {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 8px 14px;
   background: rgba(99,102,241,0.1);
   border: 1px solid rgba(99,102,241,0.2);
-  border-radius: 6px;
-  font-family: 'Monaco', 'Courier New', monospace;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   color: #A5B4FC;
   cursor: pointer;
   transition: all 0.2s;
+  user-select: all;
 }
 .step-code:hover {
   background: rgba(99,102,241,0.2);
@@ -215,321 +555,633 @@ h1 span {
   color: #4ADE80;
 }
 
-.step-image {
-  margin-top: 16px;
-  border-radius: 8px;
+/* ===== SHOWCASE ===== */
+.showcase {
+  padding: 100px 0;
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.showcase-card {
+  padding: 40px;
+  background: linear-gradient(135deg, var(--card), var(--card-hover));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.4s;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+.showcase-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-hover);
+}
+.showcase-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  transition: opacity 0.4s;
+}
+.showcase-1::after { background: var(--primary); }
+.showcase-2::after { background: var(--pink); }
+.showcase-3::after { background: var(--green); }
+.showcase-4::after { background: var(--orange); }
 
-/* Success section */
-.success {
-  padding: 60px 40px;
-  background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(0,206,201,0.08));
-  border: 1px solid rgba(34,197,94,0.2);
-  border-radius: 20px;
-  text-align: center;
-  margin-bottom: 60px;
+.showcase-emoji {
+  font-size: 48px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
 }
-.success-icon {
-  font-size: 64px;
-  margin-bottom: 20px;
-}
-.success h2 {
-  font-size: 32px;
+.showcase-card h3 {
+  font-size: 28px;
   font-weight: 800;
   margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
 }
-.success p {
-  color: #A1A1AA;
-  font-size: 16px;
-  margin-bottom: 24px;
+.showcase-card p {
+  color: var(--text-2);
+  font-size: 15px;
+  position: relative;
+  z-index: 1;
 }
 
-/* Features Grid */
-.features {
-  padding: 60px 0;
+/* ===== TEAM ===== */
+.team-section {
+  padding: 100px 0;
 }
-.features-title {
+.team-grid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.team-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
   text-align: center;
-  font-size: 36px;
+  min-width: 260px;
+  transition: all 0.4s;
+}
+.team-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(99,102,241,0.3);
+  background: var(--card-hover);
+}
+.team-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  border: 3px solid var(--primary);
+  padding: 3px;
+  background: var(--bg);
+}
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.team-name {
+  font-size: 20px;
   font-weight: 800;
-  margin-bottom: 40px;
-  letter-spacing: -1px;
+  margin-bottom: 4px;
 }
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
+.team-role {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 16px;
 }
-.feature {
-  padding: 24px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  transition: all 0.3s;
+.team-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--card-hover);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
-.feature:hover {
-  background: rgba(255,255,255,0.05);
-  transform: translateY(-4px);
+.team-link:hover {
+  background: var(--primary);
+  border-color: var(--primary);
 }
-.feature-emoji { font-size: 32px; margin-bottom: 12px; }
-.feature-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
-.feature-desc { color: #A1A1AA; font-size: 13px; line-height: 1.5; }
 
-/* Footer */
+/* ===== CTA SECTION ===== */
+.cta-section {
+  padding: 100px 0;
+  text-align: center;
+}
+.cta-box {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1));
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 32px;
+  padding: 80px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-box::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 40%);
+  animation: rotate 20s linear infinite;
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.cta-box > * { position: relative; z-index: 1; }
+.cta-box h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+.cta-box p {
+  color: var(--text-2);
+  font-size: 18px;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== FOOTER ===== */
 footer {
   padding: 60px 0 40px;
+  border-top: 1px solid var(--border);
   text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  margin-top: 60px;
 }
 .footer-brand {
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 8px;
-}
-.footer-text {
-  color: #71717A;
-  font-size: 14px;
-  line-height: 1.6;
-}
-.footer-text strong {
-  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  background: linear-gradient(135deg, var(--primary), var(--pink));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 700;
+  display: inline-block;
 }
-.footer-text span {
-  background: linear-gradient(135deg, #F59E0B, #EC4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
+.footer-tag {
+  color: var(--text-3);
+  font-size: 13px;
+  margin-bottom: 24px;
 }
 .footer-links {
   display: flex;
-  gap: 24px;
   justify-content: center;
-  margin-top: 20px;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 .footer-links a {
-  color: #A1A1AA;
+  color: var(--text-2);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   transition: color 0.2s;
 }
-.footer-links a:hover { color: #FAFAFA; }
+.footer-links a:hover { color: var(--text); }
+.footer-credit {
+  color: var(--text-3);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.footer-credit strong {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+.footer-credit span {
+  background: linear-gradient(135deg, var(--orange), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.copyright {
+  margin-top: 24px;
+  color: #52525B;
+  font-size: 12px;
+}
 
-/* Copy notification */
-.copy-notif {
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== TOAST ===== */
+.toast {
   position: fixed;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  padding: 12px 24px;
-  background: #22C55E;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, var(--green), #10B981);
   color: white;
   border-radius: 12px;
   font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 8px 24px rgba(34,197,94,0.4);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-weight: 700;
+  box-shadow: 0 12px 32px rgba(34,197,94,0.4);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.copy-notif.show { transform: translateX(-50%) translateY(0); }
+.toast.show { transform: translateX(-50%) translateY(0); }
 
-/* Responsive */
-@media (max-width: 640px) {
-  h1 { font-size: 40px; }
-  .subtitle { font-size: 16px; }
-  .step { flex-direction: column; gap: 16px; }
-  .step-number { width: 48px; height: 48px; font-size: 20px; }
-  .steps-title { font-size: 28px; }
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { padding: 60px 0 40px; }
+  .hero-stats { gap: 30px; }
+  .mockup-body { grid-template-columns: 1fr; }
+  .showcase-grid { grid-template-columns: 1fr; }
+  .timeline::before { left: 30px; }
+  .step-number { width: 60px; height: 60px; min-width: 60px; font-size: 24px; }
+  .cta-box { padding: 40px 24px; }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="mesh-bg"></div>
+<div class="grid-overlay"></div>
 
-  <header>
-    <div class="logo">
-      <div class="logo-icon">⚡</div>
-      <div class="logo-text">CodeTracker Pro</div>
-      <span class="version">v1.0.0</span>
-    </div>
-    
-    <h1>Install in<br><span>2 Minutes</span></h1>
-    <p class="subtitle">
-      Follow these simple steps to install CodeTracker Pro on Chrome.
-      No account needed. 100% free.
-    </p>
-    
-    <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="download-btn">
-      <span>⬇️</span>
-      <span>Download Latest Version</span>
-      <span class="arrow">→</span>
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">⚡</div>
+      <span>CodeTracker Pro</span>
     </a>
-    
-    <div class="meta">Windows • Mac • Linux &nbsp;•&nbsp; Chrome / Edge / Brave</div>
-  </header>
-
-  <section class="steps-section">
-    <h2 class="steps-title">Installation Guide</h2>
-    <p class="steps-subtitle">Follow each step carefully. Takes 2 minutes.</p>
-
-    <div class="step">
-      <div class="step-number">1</div>
-      <div class="step-content">
-        <h3 class="step-title">📥 Download the ZIP</h3>
-        <p class="step-desc">
-          Click the download button above. A file named <code style="background:rgba(99,102,241,0.15);padding:2px 8px;border-radius:4px;color:#A5B4FC;">CodeTracker-Pro-v1.0.0.zip</code> will be saved to your Downloads folder.
-        </p>
-      </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#team">Team</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="nav-cta">⬇️ Download</a>
     </div>
+  </div>
+</nav>
 
-    <div class="step">
-      <div class="step-number">2</div>
-      <div class="step-content">
-        <h3 class="step-title">📂 Extract the ZIP</h3>
-        <p class="step-desc">
-          Right-click the downloaded ZIP file and select <strong>"Extract All"</strong> (Windows) or double-click (Mac). 
-          Remember the folder location.
-        </p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">3</div>
-      <div class="step-content">
-        <h3 class="step-title">🌐 Open Chrome Extensions</h3>
-        <p class="step-desc">
-          Copy this URL and paste in Chrome's address bar (or click to copy):
-        </p>
-        <div class="step-code" onclick="copyText('chrome://extensions/', this)">
-          chrome://extensions/  📋
-        </div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">4</div>
-      <div class="step-content">
-        <h3 class="step-title">🔧 Enable Developer Mode</h3>
-        <p class="step-desc">
-          Look at the <strong>top-right corner</strong> of the Extensions page. 
-          Toggle ON the <strong>"Developer mode"</strong> switch.
-        </p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">5</div>
-      <div class="step-content">
-        <h3 class="step-title">📁 Load the Extension</h3>
-        <p class="step-desc">
-          Click the <strong>"Load unpacked"</strong> button (appears after enabling Developer mode).
-          A file browser will open. <strong>Select the extracted folder</strong> from Step 2.
-        </p>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-number">6</div>
-      <div class="step-content">
-        <h3 class="step-title">📌 Pin the Extension</h3>
-        <p class="step-desc">
-          Click the <strong>puzzle icon 🧩</strong> in Chrome's toolbar (top-right).
-          Find <strong>CodeTracker Pro</strong> and click the pin 📌 icon next to it.
-        </p>
-      </div>
-    </div>
-
-  </section>
-
-  <div class="success">
-    <div class="success-icon">🎉</div>
-    <h2>You're All Set!</h2>
-    <p>CodeTracker Pro is now installed. Click the extension icon to get started.</p>
-    <a href="https://github.com/aaritdhingra/CodeTracker-Pro" class="download-btn">
-      <span>⭐</span>
-      <span>Star on GitHub</span>
+<!-- ===== HERO ===== -->
+<section class="hero container">
+  <div class="hero-badge">
+    <div class="pulse-dot"></div>
+    <span>v1.0.0 • Now Live on GitHub</span>
+  </div>
+  
+  <h1>
+    Master Your<br>
+    <span class="gradient-text">Coding Grind</span>
+  </h1>
+  
+  <p class="hero-desc">
+    The ultimate Chrome extension to track LeetCode & HackerRank progress.
+    Build unbreakable streaks. Never miss a day.
+  </p>
+  
+  <div class="hero-cta">
+    <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="btn btn-primary">
+      ⬇️ Download for Chrome
+    </a>
+    <a href="#install" class="btn btn-secondary">
+      📖 How to Install →
     </a>
   </div>
 
-  <section class="features">
-    <h2 class="features-title">What You Get</h2>
-    <div class="features-grid">
-      <div class="feature">
-        <div class="feature-emoji">🎯</div>
-        <div class="feature-title">Smart Goals</div>
-        <div class="feature-desc">Daily targets for LeetCode & HackerRank</div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">2 min</div>
+      <div class="hero-stat-label">Setup Time</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Free Forever</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">0</div>
+      <div class="hero-stat-label">Data Collected</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">60+</div>
+      <div class="hero-stat-label">Fun Messages</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BROWSER MOCKUP ===== -->
+<section class="mockup-section container">
+  <div class="mockup">
+    <div class="mockup-header">
+      <div class="mockup-dot dot-r"></div>
+      <div class="mockup-dot dot-y"></div>
+      <div class="mockup-dot dot-g"></div>
+      <div class="mockup-url">chrome://codetracker-pro</div>
+    </div>
+    <div class="mockup-body">
+      <div class="mockup-card card-1">
+        <div class="mockup-card-icon">🔥</div>
+        <div class="mockup-card-val">42</div>
+        <div class="mockup-card-label">Day Streak</div>
       </div>
-      <div class="feature">
-        <div class="feature-emoji">🔥</div>
-        <div class="feature-title">Streak Counter</div>
-        <div class="feature-desc">Build unbreakable coding habits</div>
+      <div class="mockup-card card-2">
+        <div class="mockup-card-icon">📅</div>
+        <div class="mockup-card-val">8</div>
+        <div class="mockup-card-label">Today</div>
       </div>
-      <div class="feature">
-        <div class="feature-emoji">📊</div>
-        <div class="feature-title">Heatmap</div>
-        <div class="feature-desc">GitHub-style activity tracking</div>
-      </div>
-      <div class="feature">
-        <div class="feature-emoji">⏰</div>
-        <div class="feature-title">Reminders</div>
-        <div class="feature-desc">Custom time-based notifications</div>
-      </div>
-      <div class="feature">
-        <div class="feature-emoji">😂</div>
-        <div class="feature-title">Fun Messages</div>
-        <div class="feature-desc">60+ Hinglish motivational quotes</div>
-      </div>
-      <div class="feature">
-        <div class="feature-emoji">🔒</div>
-        <div class="feature-title">Private</div>
-        <div class="feature-desc">100% local, no tracking</div>
+      <div class="mockup-card card-3">
+        <div class="mockup-card-icon">🏆</div>
+        <div class="mockup-card-val">247</div>
+        <div class="mockup-card-label">Total</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
+<!-- ===== FEATURES ===== -->
+<section class="features container" id="features">
+  <div class="section-header">
+    <div class="section-tag">Features</div>
+    <h2 class="section-title">Built for Serious Coders</h2>
+    <p class="section-desc">Everything you need to stay consistent, no bloat.</p>
+  </div>
+  
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">🎯</div>
+      <h3>Smart Goals</h3>
+      <p>Separate daily targets for LeetCode & HackerRank. Weekly and monthly tracking with beautiful progress rings.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔥</div>
+      <h3>Streak System</h3>
+      <p>Build unbreakable habits. Smart 2-day grace period so one bad day doesn't destroy your progress.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📊</div>
+      <h3>Beautiful Analytics</h3>
+      <p>GitHub-style 28-day heatmap. Weekly bar charts. Platform breakdown. Achievement badges.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⏰</div>
+      <h3>Custom Reminders</h3>
+      <p>Set exact times like 6 AM or 9 PM. Multiple reminders per day. Never forget to code.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">😂</div>
+      <h3>Fun Messages</h3>
+      <p>60+ Hinglish motivational quotes. Roasts you when lazy. Celebrates when you win.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy First</h3>
+      <p>100% local storage. Zero data sent externally. No tracking. No analytics. Your data stays yours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTALL STEPS ===== -->
+<section class="install-section" id="install">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Installation</div>
+      <h2 class="section-title">Install in 2 Minutes</h2>
+      <p class="section-desc">Simple steps. No account. No configuration.</p>
+    </div>
+    
+    <div class="timeline">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-body">
+          <h4>📥 Download the ZIP</h4>
+          <p>Click the download button and save the ZIP file to your computer.</p>
+          <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="step-code">⬇️ Download Latest Release</a>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-body">
+          <h4>📂 Extract the Files</h4>
+          <p>Right-click the ZIP file and select "Extract All". Remember the folder location.</p>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-body">
+          <h4>🌐 Open Chrome Extensions</h4>
+          <p>Paste this URL in your Chrome address bar (click to copy):</p>
+          <div class="step-code" onclick="copyText('chrome://extensions/', this)">chrome://extensions/</div>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">4</div>
+        <div class="step-body">
+          <h4>🔧 Enable Developer Mode</h4>
+          <p>Look at the top-right corner. Toggle ON the "Developer mode" switch.</p>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">5</div>
+        <div class="step-body">
+          <h4>📁 Load the Extension</h4>
+          <p>Click "Load unpacked" button. Select the extracted folder from Step 2.</p>
+        </div>
+      </div>
+      
+      <div class="step-item">
+        <div class="step-number">6</div>
+        <div class="step-body">
+          <h4>📌 Pin It!</h4>
+          <p>Click the puzzle icon 🧩 in Chrome toolbar. Pin CodeTracker Pro. Done!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SHOWCASE ===== -->
+<section class="showcase container">
+  <div class="section-header">
+    <div class="section-tag">Why We Built This</div>
+    <h2 class="section-title">By Coders, For Coders</h2>
+    <p class="section-desc">Every feature exists because we needed it ourselves.</p>
+  </div>
+  
+  <div class="showcase-grid">
+    <div class="showcase-card showcase-1">
+      <div>
+        <div class="showcase-emoji">🚫</div>
+        <h3>No More Excuses</h3>
+      </div>
+      <p>Custom reminders make sure you never "forget" to code. Set 6 AM alarms. Set 9 PM alarms. Extension keeps you accountable.</p>
+    </div>
+    
+    <div class="showcase-card showcase-2">
+      <div>
+        <div class="showcase-emoji">📈</div>
+        <h3>Visual Progress</h3>
+      </div>
+      <p>See your entire journey at a glance. Heatmaps show consistency. Streaks show dedication. Numbers don't lie.</p>
+    </div>
+    
+    <div class="showcase-card showcase-3">
+      <div>
+        <div class="showcase-emoji">⚡</div>
+        <h3>Zero Friction</h3>
+      </div>
+      <p>No manual logging. No spreadsheets. Extension auto-detects your submissions and updates everything automatically.</p>
+    </div>
+    
+    <div class="showcase-card showcase-4">
+      <div>
+        <div class="showcase-emoji">🎨</div>
+        <h3>Beautiful Design</h3>
+      </div>
+      <p>Inspired by Apple, Linear, and Arc Browser. Dark mode, glassmorphism, smooth animations. A joy to use daily.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM ===== -->
+<section class="team-section container" id="team">
+  <div class="section-header">
+    <div class="section-tag">The Team</div>
+    <h2 class="section-title">Meet the Builder</h2>
+    <p class="section-desc">Made with ❤️ by real developers who use it every day.</p>
+  </div>
+  
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">
+        <img src="https://github.com/aaritdhingra.png" alt="Aarit Dhingra">
+      </div>
+      <div class="team-name">Aarit Dhingra</div>
+      <div class="team-role">Creator & Developer</div>
+      <a href="https://github.com/aaritdhingra" class="team-link">
+        🔗 GitHub Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section container">
+  <div class="cta-box">
+    <h2>Ready to Level Up?</h2>
+    <p>Join coders who are already grinding smarter, not harder.</p>
+    <div class="hero-cta">
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="btn btn-primary">
+        ⬇️ Download Now (Free)
+      </a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro" class="btn btn-secondary">
+        ⭐ Star on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
     <div class="footer-brand">⚡ CodeTracker Pro</div>
-    <div class="footer-text">
+    <div class="footer-tag">Track your coding grind. Build unbreakable streaks.</div>
+    
+    <div class="footer-links">
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro">GitHub</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases">Releases</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/issues">Report Bug</a>
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+    </div>
+    
+    <div class="footer-credit">
       Built with ❤️ by <strong>Aarit Dhingra</strong><br>
       Presented by <span>WEBSPRYX</span>
     </div>
-    <div class="footer-links">
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro">GitHub</a>
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/issues">Report Bug</a>
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases">Releases</a>
-    </div>
-    <div style="margin-top:24px; color:#52525B; font-size:12px;">
-      © 2025 All Rights Reserved
-    </div>
-  </footer>
+    
+    <div class="copyright">© 2025 All Rights Reserved</div>
+  </div>
+</footer>
 
+<div class="toast" id="toast">
+  <span>✅</span>
+  <span>Copied to clipboard!</span>
 </div>
-
-<div class="copy-notif" id="copyNotif">✅ Copied to clipboard!</div>
 
 <script>
 function copyText(text, el) {
   navigator.clipboard.writeText(text).then(() => {
+    const originalText = el.textContent;
     el.classList.add('copied');
-    el.innerHTML = text + '  ✅';
+    el.textContent = originalText + ' ✅';
     
-    const notif = document.getElementById('copyNotif');
-    notif.classList.add('show');
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
     
     setTimeout(() => {
       el.classList.remove('copied');
-      el.innerHTML = text + '  📋';
-      notif.classList.remove('show');
+      el.textContent = originalText;
+      toast.classList.remove('show');
     }, 2000);
   });
 }
+
+// Smooth reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature, .step-item, .showcase-card, .team-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
 </script>
 
 </body>
