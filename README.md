@@ -196,28 +196,34 @@ Settings tab → **Reset All** → Confirm twice
 
 <br>
 
-## 👨‍💻 Creator
+## 👥 Team
 
 <div align="center">
 
-### Made with ❤️ by **[Aarit Dhingra](https://github.com/aaritdhingra)**
+### Built with ❤️ by
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="https://github.com/aaritdhingra">
+<img src="https://github.com/aaritdhingra.png" width="100" style="border-radius:50%" alt="Aarit Dhingra"/><br>
+<b>Aarit Dhingra</b>
+</a>
+<br>
+<sub>Creator & Lead Developer</sub>
+</td>
+<td align="center" width="50%">
+<a href="https://github.com/kumarisaweta">
+<img src="https://github.com/kumarisaweta.png" width="100" style="border-radius:50%" alt="Saweta Chaurasiya"/><br>
+<b>Saweta Chaurasiya</b>
+</a>
+<br>
+<sub>Co-Developer</sub>
+</td>
+</tr>
+</table>
 
 **Presented by WEBSPRYX**
 
-<br>
-
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=000)](https://github.com/aaritdhingra)
-
-<br>
-
----
-
-<br>
-
-**⭐ If this helped you, please star the repo! ⭐**
-
-<br>
-
-*Built by a coder, for coders who want to stay consistent.*
-
 </div>
+
