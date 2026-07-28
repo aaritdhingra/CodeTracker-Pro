@@ -1,15 +1,11 @@
 ﻿---
-name: Feature Request
+name: 💡 Feature Request
 about: Suggest a new feature
-title: '[FEATURE] '
 labels: enhancement
 ---
 
-## Feature Description
-What would you like to see?
+## Feature
+What would you like?
 
 ## Why?
-How would this help?
-
-## Alternatives
-Any other solutions considered?
+How does it help?

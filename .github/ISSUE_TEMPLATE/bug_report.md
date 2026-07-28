@@ -1,7 +1,6 @@
 ﻿---
-name: Bug Report
+name: 🐛 Bug Report
 about: Report something that is not working
-title: '[BUG] '
 labels: bug
 ---
 
@@ -17,9 +16,9 @@ What went wrong?
 What should have happened?
 
 ## Screenshots
-If applicable, add screenshots.
+If applicable.
 
-## System Info
-- Chrome Version: 
-- OS: 
+## System
+- Chrome Version:
+- OS:
 - Extension Version: v1.0.0

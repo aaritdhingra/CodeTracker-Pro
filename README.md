@@ -1,159 +1,223 @@
 ﻿<div align="center">
 
-# CodeTracker Pro
+<img src="https://raw.githubusercontent.com/aaritdhingra/CodeTracker-Pro/main/docs/images/banner.png" alt="CodeTracker Pro" width="100%" />
 
-### The Ultimate LeetCode and HackerRank Tracker
+# ⚡ CodeTracker Pro
 
-![Version](https://img.shields.io/badge/version-1.0.0-6366F1?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Chrome-Extension-F59E0B?style=for-the-badge&logo=googlechrome&logoColor=white)
-![License](https://img.shields.io/badge/License-Proprietary-EF4444?style=for-the-badge)
-![Made in India](https://img.shields.io/badge/Made%20in-India-22C55E?style=for-the-badge)
+### **The Ultimate LeetCode & HackerRank Tracker**
 
-**[Download Latest](../../releases/latest)** | **[Features](#features)** | **[Install](#installation)** | **[Report Bug](../../issues)**
+*Track your grind. Build streaks. Never miss a day.*
+
+<br>
+
+[![Version](https://img.shields.io/badge/version-1.0.0-6366F1?style=for-the-badge&labelColor=000)](../../releases/latest)
+[![Chrome](https://img.shields.io/badge/Chrome-Extension-F59E0B?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=000)](https://chrome.google.com/)
+[![License](https://img.shields.io/badge/License-Proprietary-EF4444?style=for-the-badge&labelColor=000)](LICENSE)
+[![Made in India](https://img.shields.io/badge/Made%20in-India%20🇮🇳-22C55E?style=for-the-badge&labelColor=000)](https://github.com/aaritdhingra)
+
+<br>
+
+### 🎯 [**⬇️ DOWNLOAD NOW**](../../releases/latest) &nbsp;•&nbsp; 📖 [**INSTALL GUIDE**](https://aaritdhingra.github.io/CodeTracker-Pro/) &nbsp;•&nbsp; 🐛 [**REPORT BUG**](../../issues)
+
+<br>
 
 ---
-
-**Track your coding grind. Build streaks. Never miss a day.**
 
 </div>
 
----
+## 🌟 Why CodeTracker Pro?
 
-## What is This
+> *"Consistency killed my LeetCode journey. So I built the tool I wish I had."*
 
-CodeTracker Pro is a Chrome Extension that automatically tracks your problem-solving journey on LeetCode and HackerRank.
+If you're grinding LeetCode/HackerRank but keep breaking streaks, forgetting to code, or losing motivation — **this is for you.**
 
-Built by a coder, for coders who struggle with consistency.
+**CodeTracker Pro** silently tracks your problem-solving journey and keeps you accountable with beautiful stats, custom reminders, and daily goals.
 
----
+<br>
 
-## Features
+## ✨ Features
 
-### Smart Goal System
-- Separate daily goals for LeetCode and HackerRank
-- Weekly and monthly targets
-- Visual progress rings
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### Streak Tracking
-- Daily streak counter
-- Best streak record
-- Smart break protection (2+ days grace)
+### 🎯 **Smart Goals**
+Separate daily targets for LeetCode & HackerRank. Weekly and monthly tracking.
 
-### Beautiful Analytics
-- 28-day activity heatmap
-- Weekly bar charts
-- Platform-wise breakdown
-- 8 achievement badges
+### 🔥 **Streak System**
+Build consistency. Smart break protection (only breaks after 2+ missed days).
 
-### Custom Reminders
-- Set exact times (6 AM, 9 PM, etc.)
-- Multiple reminders per day
-- Chrome notifications with sound
+### 📊 **Beautiful Analytics**
+28-day heatmap, weekly charts, achievement badges. Visualize your progress.
 
-### Fun Messages
-- 60+ Hinglish motivational quotes
-- Different for accepted/wrong/TLE
-- Random on every submission
+### ⏰ **Custom Reminders**
+Set exact times (6 AM, 9 PM). Multiple reminders. Never forget to code.
 
-### Privacy First
-- 100% local storage
-- Zero data sent externally
-- No tracking, no analytics
+</td>
+<td width="50%" valign="top">
 
----
+### 😂 **Fun Messages**
+60+ Hinglish motivational quotes. Roasts when you're lazy. Cheers when you win.
 
-## Installation
+### 🌙 **Premium UI**
+Apple/Linear inspired dark mode. Glassmorphism. Smooth animations.
 
-### Quick Install (2 Minutes)
+### 🔒 **Privacy First**
+100% local storage. Zero data sent externally. No tracking. No analytics.
 
-1. **Download** the latest release
-   - Click [Latest Release](../../releases/latest)
-   - Download the ZIP file
+### 🎉 **Auto-Detection**
+Automatically counts on ""Accepted"". No manual logging needed.
 
-2. **Extract** the ZIP
-   - Right-click, Extract All
-   - Note the folder location
+</td>
+</tr>
+</table>
 
-3. **Load in Chrome**
-   - Open `chrome://extensions/`
-   - Toggle Developer Mode (top-right)
-   - Click Load Unpacked
-   - Select the extracted folder
+<br>
 
-4. **Pin the Extension**
-   - Click puzzle icon in toolbar
-   - Pin CodeTracker Pro
+## 🚀 Installation
 
-Done!
+### 📖 **Detailed Guide**: [Visit Install Page →](https://aaritdhingra.github.io/CodeTracker-Pro/)
 
----
+**Quick Steps (2 minutes):**
 
-## How to Use
+<table>
+<tr>
+<td width="60px" align="center"><h2>1️⃣</h2></td>
+<td><b>Download</b><br><a href="../../releases/latest">Click here</a> to download the latest ZIP</td>
+</tr>
+<tr>
+<td align="center"><h2>2️⃣</h2></td>
+<td><b>Extract</b><br>Right-click the ZIP → <code>Extract All</code></td>
+</tr>
+<tr>
+<td align="center"><h2>3️⃣</h2></td>
+<td><b>Open Chrome Extensions</b><br>Paste in address bar: <code>chrome://extensions/</code></td>
+</tr>
+<tr>
+<td align="center"><h2>4️⃣</h2></td>
+<td><b>Enable Developer Mode</b><br>Toggle switch in top-right corner</td>
+</tr>
+<tr>
+<td align="center"><h2>5️⃣</h2></td>
+<td><b>Load Unpacked</b><br>Click button → Select extracted folder</td>
+</tr>
+<tr>
+<td align="center"><h2>6️⃣</h2></td>
+<td><b>Pin It!</b><br>Click puzzle icon 🧩 → Pin CodeTracker Pro 📌</td>
+</tr>
+</table>
 
-**Step 1:** Set your daily goals in the Goals tab
+**Done!** ✅ Extension is live.
 
-**Step 2:** Add reminder times in Settings tab
+<br>
 
-**Step 3:** Start solving on LeetCode or HackerRank
-
-**Step 4:** Extension auto-detects Accepted submissions
-
-**Step 5:** Check your progress anytime
-
----
-
-## Troubleshooting
-
-**Extension not detecting solves?**
-- Close all LeetCode/HackerRank tabs
-- Open fresh tab
-- Extension only counts on Submit (not Run Code)
-
-**Notifications not working?**
-- Windows: Settings, Notifications, Allow Chrome
-- Chrome: Site Settings, Notifications, Allow
-
-**How to reset data?**
-- Settings tab, Reset All, Confirm twice
-
----
-
-## Tech Stack
-
-- Chrome Extension Manifest V3
-- Vanilla JavaScript (no frameworks)
-- Chrome Storage API
-- Chrome Alarms API
-- MutationObserver
-- Custom CSS
-
----
-
-## License
-
-**Proprietary Software** Copyright 2025 Aarit Dhingra
-
-- Free for personal use
-- No commercial use without permission
-- No redistribution
-- No reverse engineering
-
-Source code is not publicly available. Only compiled releases are distributed.
-
----
-
-## Creator
+## 🎬 How It Works
 
 <div align="center">
 
-### Made with love by **Aarit Dhingra**
+| Set Goals | Solve Problems | Track Progress |
+|:---:|:---:|:---:|
+| Configure daily targets | Auto-detected on Submit | Beautiful dashboard |
 
-Presented by **WEBSPRYX**
+</div>
 
-[GitHub](https://github.com/aaritdhingra)
+<br>
+
+## 🎨 Screenshots
+
+<div align="center">
+
+*Coming soon — Add screenshots to \docs/images/\ folder*
+
+</div>
+
+<br>
+
+## ⚙️ Tech Stack
+
+- **Chrome Extension Manifest V3**
+- **Vanilla JavaScript** (no frameworks, blazing fast)
+- **Chrome Storage API** (local persistence)
+- **Chrome Alarms API** (custom reminders)
+- **MutationObserver** (submission detection)
+- **Custom CSS** with design tokens
+
+<br>
+
+## 🐛 Troubleshooting
+
+<details>
+<summary><b>❓ Extension not detecting solves?</b></summary>
+<br>
+
+- Close all LeetCode/HackerRank tabs
+- Open a fresh tab
+- Extension counts only on **Submit** (not Run Code)
+- Same problem has 5-min cooldown
+
+</details>
+
+<details>
+<summary><b>❓ Notifications not showing?</b></summary>
+<br>
+
+- **Windows:** Settings → Notifications → Allow Chrome
+- **Chrome:** Site Settings → Notifications → Allow
+- Check reminder time in Settings tab
+
+</details>
+
+<details>
+<summary><b>❓ Data got wiped?</b></summary>
+<br>
+
+Auto-backup runs every 10 seconds. Data restores automatically if wiped accidentally.
+
+</details>
+
+<details>
+<summary><b>❓ How to reset all data?</b></summary>
+<br>
+
+Settings tab → **Reset All** → Confirm twice
+
+</details>
+
+<br>
+
+## 📜 License
+
+**Proprietary Software** © 2025 [Aarit Dhingra](https://github.com/aaritdhingra)
+
+- ✅ **Free for personal use**
+- ❌ No commercial use without permission
+- ❌ No redistribution
+- ❌ No reverse engineering
+
+<br>
+
+## 👨‍💻 Creator
+
+<div align="center">
+
+### Made with ❤️ by **[Aarit Dhingra](https://github.com/aaritdhingra)**
+
+**Presented by WEBSPRYX**
+
+<br>
+
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=000)](https://github.com/aaritdhingra)
+
+<br>
 
 ---
 
-**If this helped you, star this repo!**
+<br>
+
+**⭐ If this helped you, please star the repo! ⭐**
+
+<br>
+
+*Built by a coder, for coders who want to stay consistent.*
 
 </div>
