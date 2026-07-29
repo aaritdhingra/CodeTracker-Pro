@@ -595,6 +595,164 @@ footer {
   .preview-body { grid-template-columns: 1fr; padding: 24px; }
   .quick-grid { grid-template-columns: 1fr; }
 }
+
+/* FANCY DOWNLOAD BUTTON */
+.fancy-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px 14px 18px;
+  background: linear-gradient(135deg, #00D26A 0%, #00A852 100%);
+  color: #0A0A0A;
+  border-radius: 14px;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 8px 24px rgba(0, 210, 106, 0.35),
+    0 0 0 1px rgba(0, 210, 106, 0.5) inset,
+    0 -2px 8px rgba(0,0,0,0.15) inset;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.fancy-download-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 16px 40px rgba(0, 210, 106, 0.5),
+    0 0 0 1px rgba(0, 210, 106, 0.6) inset,
+    0 -2px 8px rgba(0,0,0,0.15) inset;
+}
+.fancy-download-btn:active {
+  transform: translateY(-1px) scale(1);
+}
+.fdb-icon-wrap {
+  width: 40px;
+  height: 40px;
+  background: rgba(10, 10, 10, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.fancy-download-btn:hover .fdb-icon-wrap {
+  background: rgba(10, 10, 10, 0.25);
+  transform: rotate(-8deg);
+}
+.fdb-icon {
+  width: 22px;
+  height: 22px;
+  animation: bounceDown 2s ease-in-out infinite;
+}
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+.fdb-text-wrap {
+  text-align: left;
+}
+.fdb-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.fdb-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.fdb-badge {
+  padding: 2px 6px;
+  background: rgba(10, 10, 10, 0.25);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+}
+.fdb-dot {
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.fdb-arrow {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: all 0.3s;
+}
+.fdb-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+.fancy-download-btn:hover .fdb-arrow {
+  opacity: 1;
+  transform: translateY(3px);
+}
+.fdb-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shine 3s ease-in-out infinite;
+}
+@keyframes shine {
+  0%, 90%, 100% { left: -100%; }
+  50% { left: 100%; }
+}
+
+/* ALT DOWNLOAD LINK */
+.alt-download {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  animation: fadeInUp 0.6s ease 0.5s backwards;
+}
+.alt-download a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.alt-download a:hover {
+  background: var(--accent-dim);
+}
+.alt-download svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Download click animation */
+.fancy-download-btn.clicked {
+  animation: downloadPulse 0.6s ease;
+}
+@keyframes downloadPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
 </style>
 </head>
 <body>
@@ -634,20 +792,48 @@ footer {
       Build streaks. Never miss a day.
     </p>
     <div class="hero-actions">
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest/download/CodeTracker-Pro-v1.0.0.zip" download class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Extension
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest/download/CodeTracker-Pro-v1.1.0.zip" download class="fancy-download-btn">
+        <div class="fdb-icon-wrap">
+          <svg class="fdb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+        <div class="fdb-text-wrap">
+          <div class="fdb-title">Download for Chrome</div>
+          <div class="fdb-meta">
+            <span class="fdb-badge">v1.1.0</span>
+            <span class="fdb-dot"></span>
+            <span>Free</span>
+            <span class="fdb-dot"></span>
+            <span id="fdb-size">~100 KB</span>
+          </div>
+        </div>
+        <div class="fdb-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="5 12 12 19 19 12"/>
+          </svg>
+        </div>
+        <div class="fdb-shine"></div>
       </a>
       <a href="install.html" class="btn btn-secondary">
         Installation Guide
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
       </a>
     </div>
-    <div style="margin-top: 20px; font-size: 13px; color: var(--text-3);">
-      Also available on <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" style="color: var(--accent); text-decoration: none; font-weight: 600;">GitHub Releases</a>
-    </div>
-
-    <div class="preview-wrap">
+    <div class="alt-download">
+      <span>Prefer GitHub?</span>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div><div class="preview-wrap">
       <div class="preview">
         <div class="preview-bar">
           <div class="preview-dot red"></div>
@@ -716,8 +902,37 @@ footer {
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const dlBtn = document.querySelector('.fancy-download-btn');
+  if (dlBtn) {
+    dlBtn.addEventListener('click', function() {
+      this.classList.add('clicked');
+      setTimeout(() => this.classList.remove('clicked'), 600);
+      
+      // Show a success toast
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#00D26A;color:#0A0A0A;padding:14px 24px;border-radius:10px;font-weight:700;font-size:13px;box-shadow:0 12px 32px rgba(0,210,106,0.4);z-index:9999;animation:toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1);';
+      toast.innerHTML = '⬇ Download started! Check your Downloads folder.';
+      document.body.appendChild(toast);
+      
+      const style = document.createElement('style');
+      style.textContent = '@keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }';
+      document.head.appendChild(style);
+      
+      setTimeout(() => {
+        toast.style.animation = 'toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1) reverse';
+        setTimeout(() => toast.remove(), 400);
+      }, 3500);
+    });
+  }
+});
+</script>
 </body>
 </html>
+
+
 
 
 
