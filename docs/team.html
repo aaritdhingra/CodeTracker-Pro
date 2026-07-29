@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Team · CodeTracker Pro</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -20,8 +21,9 @@
   --text-4: #444444;
   --accent: #00D26A;
   --accent-hover: #00E876;
-  --accent-dim: rgba(0, 210, 106, 0.1);
+  --accent-dim: rgba(0, 210, 106, 0.08);
   --accent-border: rgba(0, 210, 106, 0.2);
+  --accent-glow: rgba(0, 210, 106, 0.4);
 }
 html { scroll-behavior: smooth; }
 body {
@@ -32,8 +34,46 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 ::selection { background: var(--accent); color: var(--bg); }
+
+/* NOISE TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* AMBIENT GLOW */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  filter: blur(80px);
+  opacity: 0.15;
+  z-index: -2;
+  pointer-events: none;
+  animation: ambientFloat 15s ease-in-out infinite;
+}
+@keyframes ambientFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 50px) scale(1.2); }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
 
 /* NAV */
 nav {
@@ -41,9 +81,9 @@ nav {
   top: 0;
   z-index: 100;
   padding: 16px 0;
-  background: rgba(10,10,10,0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
 }
 .container {
@@ -60,24 +100,23 @@ nav {
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   text-decoration: none;
   color: var(--text);
+  transition: transform 0.2s;
 }
+.nav-brand:hover { transform: translateX(2px); }
 .nav-logo {
-  width: 28px;
-  height: 28px;
-  background: var(--accent);
-  color: var(--bg);
-  border-radius: 7px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
-  font-weight: 900;
+  filter: drop-shadow(0 4px 8px var(--accent-glow));
 }
+.nav-logo svg { width: 100%; height: 100%; }
 .nav-links {
   display: flex;
   gap: 4px;
@@ -91,6 +130,7 @@ nav {
   font-weight: 500;
   border-radius: 6px;
   transition: all 0.15s;
+  position: relative;
 }
 .nav-link:hover {
   color: var(--text);
@@ -98,45 +138,56 @@ nav {
 }
 .nav-link.active {
   color: var(--accent);
-  background: var(--accent-dim);
+}
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent-glow);
 }
 .nav-cta {
   padding: 8px 16px;
   background: var(--accent);
   color: var(--bg) !important;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 6px;
   text-decoration: none;
   font-size: 14px;
   transition: all 0.2s;
-  margin-left: 8px;
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px var(--accent-glow);
 }
 .nav-cta:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px var(--accent-glow);
 }
+.nav-cta svg { width: 14px; height: 14px; }
 
 /* PAGE CONTENT */
-main {
-  flex: 1;
-  padding: 60px 0;
-}
-
-/* HEADINGS */
-h1, h2, h3 {
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
+main { flex: 1; padding: 60px 0; }
+h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; }
 .page-title {
-  font-size: 48px;
-  font-weight: 800;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 900;
   margin-bottom: 16px;
+  animation: fadeInUp 0.6s ease;
 }
 .page-subtitle {
-  font-size: 18px;
+  font-size: clamp(16px, 2vw, 19px);
   color: var(--text-2);
   margin-bottom: 48px;
   max-width: 600px;
+  animation: fadeInUp 0.6s ease 0.1s backwards;
 }
 
 /* BUTTONS */
@@ -151,17 +202,32 @@ h1, h2, h3 {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   font-family: inherit;
+  position: relative;
+  overflow: hidden;
 }
+.btn svg { width: 16px; height: 16px; }
 .btn-primary {
   background: var(--accent);
   color: var(--bg);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
 }
 .btn-primary:hover {
   background: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 210, 106, 0.3);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+.btn-primary:hover::before {
+  transform: translateX(100%);
 }
 .btn-secondary {
   background: var(--card);
@@ -170,7 +236,8 @@ h1, h2, h3 {
 }
 .btn-secondary:hover {
   background: var(--card-hover);
-  border-color: var(--border-hover);
+  border-color: var(--accent-border);
+  transform: translateY(-2px);
 }
 
 /* FOOTER */
@@ -178,6 +245,7 @@ footer {
   border-top: 1px solid var(--border);
   padding: 32px 0;
   margin-top: auto;
+  background: rgba(15,15,15,0.5);
 }
 .footer-inner {
   display: flex;
@@ -195,7 +263,8 @@ footer {
 }
 .footer-left span {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 .footer-links {
   display: flex;
@@ -206,94 +275,249 @@ footer {
   text-decoration: none;
   font-size: 13px;
   transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 .footer-links a:hover { color: var(--text); }
+.footer-links svg { width: 12px; height: 12px; }
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
 
 @media (max-width: 640px) {
-  .page-title { font-size: 32px; }
-  .nav-link:not(.nav-cta) { display: none; }
+  .nav-links .nav-link:not(.nav-cta) { display: none; }
+  .footer-inner { flex-direction: column; text-align: center; }
 }
-.team-hero {
+.team-header {
   text-align: center;
-  padding: 40px 0 60px;
+  margin-bottom: 60px;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+.team-card {
+  padding: 40px 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: teamIn 0.6s ease forwards;
+}
+.team-card:nth-child(1) { animation-delay: 0.1s; }
+.team-card:nth-child(2) { animation-delay: 0.2s; }
+@keyframes teamIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 40%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.team-card:hover {
+  border-color: var(--accent-border);
+  background: var(--card-hover);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+.team-card:hover::before { opacity: 0.15; }
+
+.team-avatar-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 24px;
 }
 .team-avatar {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
-  margin: 0 auto 24px;
-  border: 2px solid var(--accent);
-  padding: 3px;
+  border: 3px solid var(--accent);
+  padding: 4px;
   background: var(--bg);
+  transition: transform 0.4s;
+  position: relative;
+  z-index: 1;
 }
 .team-avatar img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  object-fit: cover;
 }
+.team-card:hover .team-avatar {
+  transform: scale(1.05) rotate(-3deg);
+}
+.avatar-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed var(--accent);
+  opacity: 0.3;
+  animation: spin 20s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .team-name {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 900;
   letter-spacing: -0.02em;
   margin-bottom: 6px;
 }
 .team-role {
-  font-size: 15px;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+.team-bio {
   color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.6;
   margin-bottom: 24px;
+  min-height: 60px;
 }
-.team-links {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 40px;
+.team-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
+.team-social:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--accent-glow);
+}
+.team-social svg { width: 16px; height: 16px; }
 
 .story-section {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
-  padding-top: 40px;
-  border-top: 1px solid var(--border);
+  padding: 48px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
 .story-section h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.story-section h2 svg {
+  width: 28px;
+  height: 28px;
+  color: var(--accent);
 }
 .story-section p {
   color: var(--text-2);
   font-size: 15px;
   line-height: 1.8;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+}
+.story-section p:last-child { margin-bottom: 0; }
+.story-section strong {
+  color: var(--text);
 }
 
 .brand-box {
-  max-width: 700px;
-  margin: 60px auto 0;
-  padding: 32px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  max-width: 720px;
+  margin: 40px auto 0;
+  padding: 40px;
+  background: linear-gradient(135deg, var(--card), var(--bg-2));
+  border: 1px solid var(--accent-border);
+  border-radius: 16px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.brand-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 .brand-label {
   font-size: 11px;
   color: var(--text-3);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .brand-name {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 900;
   color: var(--accent);
-  letter-spacing: 2px;
-  margin-bottom: 8px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 40px var(--accent-glow);
 }
 .brand-tag {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-3);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .team-grid { grid-template-columns: 1fr; }
+  .story-section, .brand-box { padding: 32px 24px; }
+  .brand-name { font-size: 32px; }
 }
 </style>
 </head>
@@ -301,7 +525,9 @@ footer {
 <nav>
   <div class="container nav-inner">
     <a href="index.html" class="nav-brand">
-      <div class="nav-logo">⚡</div>
+      <div class="nav-logo">
+        <img src="assets/logo.svg" alt="CodeTracker Pro" width="32" height="32">
+      </div>
       <span>CodeTracker Pro</span>
     </a>
     <div class="nav-links">
@@ -309,41 +535,75 @@ footer {
       <a href="features.html" class="nav-link ">Features</a>
       <a href="install.html" class="nav-link ">Install</a>
       <a href="team.html" class="nav-link active">Team</a>
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="nav-cta">Download</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+      </a>
     </div>
   </div>
 </nav>
 <main>
 <div class="container">
-  <div class="team-hero">
-    <div class="team-avatar">
-      <img src="https://github.com/aaritdhingra.png" alt="Aarit Dhingra">
+  <div class="team-header">
+    <h1 class="page-title" style="margin-bottom: 12px;">Meet the Team</h1>
+    <p class="page-subtitle" style="margin-bottom: 0;">Two developers who built the tool they wished existed.</p>
+  </div>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar-wrap">
+        <div class="avatar-ring"></div>
+        <div class="team-avatar">
+          <img src="https://github.com/aaritdhingra.png" alt="Aarit Dhingra">
+        </div>
+      </div>
+      <div class="team-name">Aarit Dhingra</div>
+      <div class="team-role">Creator · Lead Developer</div>
+      <p class="team-bio">
+        Frontend engineer obsessed with clean UI and dev tools. Built CodeTracker Pro to stop breaking his own streaks.
+      </p>
+      <a href="https://github.com/aaritdhingra" class="team-social">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        @aaritdhingra
+      </a>
     </div>
-    <h1 class="team-name">Aarit Dhingra</h1>
-    <p class="team-role">Creator · Developer · Coder</p>
-    <div class="team-links">
-      <a href="https://github.com/aaritdhingra" class="btn btn-secondary">GitHub</a>
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro" class="btn btn-primary">View Project</a>
+
+    <div class="team-card">
+      <div class="team-avatar-wrap">
+        <div class="avatar-ring"></div>
+        <div class="team-avatar">
+          <img src="https://github.com/kumarisaweta.png" alt="Saweta Kumari">
+        </div>
+      </div>
+      <div class="team-name">Saweta Kumari</div>
+      <div class="team-role">Co-Developer · Contributor</div>
+      <p class="team-bio">
+        Passionate coder and design enthusiast. Partnered on making CodeTracker Pro simple, sharp, and student-friendly.
+      </p>
+      <a href="https://github.com/kumarisaweta" class="team-social">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        @kumarisaweta
+      </a>
     </div>
   </div>
 
   <div class="story-section">
-    <h2>The Story</h2>
+    <h2><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> The Story</h2>
     <p>
-      CodeTracker Pro was born out of frustration. I kept starting LeetCode streaks and losing them. 
+      CodeTracker Pro was born out of frustration. We kept starting LeetCode streaks and losing them. 
       No existing tool felt personal enough. Everything was either too complex or too boring.
     </p>
     <p>
-      So I built the tool I wished existed. Simple. Fast. Fun. A Chrome extension that just works 
-      in the background while I focus on solving problems.
+      So we built the tool we wished existed. <strong>Simple. Fast. Fun.</strong> A Chrome extension that just works 
+      in the background while we focus on solving problems.
     </p>
     <p>
       What started as a weekend project turned into something bigger. Custom reminders. Streak protection. 
-      Auto-detection. Hinglish messages that roast me when I'm being lazy. Every feature exists 
-      because I needed it.
+      Auto-detection. Hinglish messages that roast us when we're being lazy. Every feature exists 
+      because we needed it.
     </p>
     <p>
-      Now it's here for you. Free. Private. Made with love.
+      Now it's here for you. <strong>Free. Private. Made with love.</strong>
     </p>
   </div>
 
@@ -357,10 +617,10 @@ footer {
 <footer>
   <div class="container footer-inner">
     <div class="footer-left">
-      Built by <strong>Aarit Dhingra</strong> · <span>WEBSPRYX</span>
+      Built by <strong>Aarit Dhingra</strong> & <strong>Saweta Kumari</strong> · <span>WEBSPRYX</span>
     </div>
     <div class="footer-links">
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro">GitHub</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
       <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases">Releases</a>
       <a href="https://github.com/aaritdhingra/CodeTracker-Pro/issues">Issues</a>
     </div>
