@@ -228,3 +228,4 @@ Settings tab → **Reset All** → Confirm twice
 </div>
 
 
+
