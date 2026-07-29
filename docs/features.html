@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CodeTracker Pro · Track LeetCode & HackerRank</title>
-<meta name="description" content="Chrome extension for tracking LeetCode & HackerRank progress. Build streaks, set goals, stay consistent.">
+<title>Features · CodeTracker Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -214,171 +213,71 @@ footer {
   .page-title { font-size: 32px; }
   .nav-link:not(.nav-cta) { display: none; }
 }
-.hero {
-  padding: 80px 0 100px;
-  text-align: center;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-border);
-  border-radius: 99px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  margin-bottom: 32px;
-}
-.hero-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-.hero h1 {
-  font-size: clamp(48px, 8vw, 88px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  margin-bottom: 24px;
-}
-.hero-accent {
-  color: var(--accent);
-}
-.hero-desc {
-  font-size: clamp(17px, 2vw, 20px);
-  color: var(--text-2);
-  max-width: 560px;
-  margin: 0 auto 40px;
-}
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
   margin-bottom: 60px;
 }
-
-/* Preview Card */
-.preview {
-  max-width: 700px;
-  margin: 0 auto;
+.feature-card {
+  padding: 28px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
-}
-.preview-bar {
-  padding: 12px 16px;
-  background: var(--bg-2);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.preview-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--border-hover);
-}
-.preview-url {
-  margin-left: 16px;
-  font-size: 12px;
-  color: var(--text-3);
-  font-family: 'JetBrains Mono', monospace;
-}
-.preview-body {
-  padding: 40px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.preview-stat {
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-}
-.preview-stat-val {
-  font-size: 32px;
-  font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
-}
-.preview-stat-label {
-  font-size: 11px;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 6px;
-  font-weight: 600;
-}
-
-/* Quick Info */
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 80px;
-}
-.quick-card {
-  padding: 24px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
   transition: all 0.2s;
-  text-decoration: none;
-  color: inherit;
-  display: block;
 }
-.quick-card:hover {
+.feature-card:hover {
   border-color: var(--accent-border);
   background: var(--card-hover);
-  transform: translateY(-2px);
 }
-.quick-card-icon {
-  width: 40px;
-  height: 40px;
+.feature-icon {
+  width: 44px;
+  height: 44px;
   background: var(--accent-dim);
-  border-radius: 8px;
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  margin-bottom: 12px;
+  font-size: 22px;
+  margin-bottom: 20px;
 }
-.quick-card h3 {
-  font-size: 16px;
+.feature-card h3 {
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
-.quick-card p {
-  font-size: 13px;
-  color: var(--text-3);
-}
-.quick-arrow {
-  color: var(--accent);
-  font-size: 13px;
-  font-weight: 600;
-  margin-top: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.feature-card p {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-@media (max-width: 640px) {
-  .preview-body { grid-template-columns: 1fr; padding: 24px; }
-  .quick-grid { grid-template-columns: 1fr; }
+.tech-section {
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.tech-title {
+  font-size: 14px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tech-tag {
+  padding: 8px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-2);
+  font-family: 'JetBrains Mono', monospace;
 }
 </style>
 </head>
@@ -390,8 +289,8 @@ footer {
       <span>CodeTracker Pro</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" class="nav-link active">Home</a>
-      <a href="features.html" class="nav-link ">Features</a>
+      <a href="index.html" class="nav-link ">Home</a>
+      <a href="features.html" class="nav-link active">Features</a>
       <a href="install.html" class="nav-link ">Install</a>
       <a href="team.html" class="nav-link ">Team</a>
       <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="nav-cta">Download</a>
@@ -399,74 +298,70 @@ footer {
   </div>
 </nav>
 <main>
-<section class="hero">
-  <div class="container">
-    <div class="hero-badge">
-      <div class="hero-dot"></div>
-      <span>v1.0.0 · Now Available</span>
-    </div>
-    <h1>
-      Track your<br>
-      <span class="hero-accent">coding grind.</span>
-    </h1>
-    <p class="hero-desc">
-      A Chrome extension that automatically tracks your LeetCode & HackerRank progress. 
-      Build streaks. Never miss a day.
-    </p>
-    <div class="hero-actions">
-      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="btn btn-primary">
-        Download Extension
-      </a>
-      <a href="install.html" class="btn btn-secondary">
-        Installation Guide →
-      </a>
-    </div>
+<div class="container">
+  <h1 class="page-title">Features</h1>
+  <p class="page-subtitle">Everything you need to stay consistent. Nothing you don't.</p>
 
-    <div class="preview">
-      <div class="preview-bar">
-        <div class="preview-dot"></div>
-        <div class="preview-dot"></div>
-        <div class="preview-dot"></div>
-        <div class="preview-url">CodeTracker Pro Extension</div>
-      </div>
-      <div class="preview-body">
-        <div class="preview-stat">
-          <div class="preview-stat-val">42</div>
-          <div class="preview-stat-label">Day Streak</div>
-        </div>
-        <div class="preview-stat">
-          <div class="preview-stat-val">8</div>
-          <div class="preview-stat-label">Today</div>
-        </div>
-        <div class="preview-stat">
-          <div class="preview-stat-val">247</div>
-          <div class="preview-stat-label">Total Solved</div>
-        </div>
-      </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Platform Goals</h3>
+      <p>Set separate daily targets for LeetCode and HackerRank. Track weekly and monthly progress with visual rings.</p>
     </div>
-
-    <div class="quick-grid">
-      <a href="features.html" class="quick-card">
-        <div class="quick-card-icon">✨</div>
-        <h3>Features</h3>
-        <p>What CodeTracker Pro can do</p>
-        <div class="quick-arrow">Explore →</div>
-      </a>
-      <a href="install.html" class="quick-card">
-        <div class="quick-card-icon">📥</div>
-        <h3>Install</h3>
-        <p>Setup guide in 2 minutes</p>
-        <div class="quick-arrow">Get started →</div>
-      </a>
-      <a href="team.html" class="quick-card">
-        <div class="quick-card-icon">👋</div>
-        <h3>Team</h3>
-        <p>Meet the creator</p>
-        <div class="quick-arrow">Learn more →</div>
-      </a>
+    <div class="feature-card">
+      <div class="feature-icon">🔥</div>
+      <h3>Streak System</h3>
+      <p>Build consistency with smart streak tracking. 2-day grace period so one bad day doesn't destroy progress.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Activity Heatmap</h3>
+      <p>GitHub-style 28-day heatmap visualization. See your consistency at a glance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⏰</div>
+      <h3>Custom Reminders</h3>
+      <p>Set exact times like 6 AM or 9 PM. Add multiple reminders. Never forget to code again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>Auto Detection</h3>
+      <p>Automatically counts problems when you click Submit. No manual logging. Zero friction.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏅</div>
+      <h3>Achievements</h3>
+      <p>8 unlockable badges. From first solve to century club. Gamified progress.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">😂</div>
+      <h3>Fun Messages</h3>
+      <p>60+ Hinglish motivational quotes. Roasts when you're lazy. Celebrates when you win.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌙</div>
+      <h3>Dark Mode UI</h3>
+      <p>Minimal, focused design. Apple and Linear inspired. Easy on the eyes for long sessions.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy First</h3>
+      <p>100% local storage. Zero data sent externally. No tracking. No analytics. Your data stays yours.</p>
     </div>
   </div>
-</section>
+
+  <div class="tech-section">
+    <div class="tech-title">Built With</div>
+    <div class="tech-grid">
+      <div class="tech-tag">Manifest V3</div>
+      <div class="tech-tag">Vanilla JavaScript</div>
+      <div class="tech-tag">Chrome Storage API</div>
+      <div class="tech-tag">Chrome Alarms API</div>
+      <div class="tech-tag">MutationObserver</div>
+      <div class="tech-tag">CSS Custom Properties</div>
+    </div>
+  </div>
+</div>
 </main>
 <footer>
   <div class="container footer-inner">

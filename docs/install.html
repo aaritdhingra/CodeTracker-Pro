@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Install · CodeTracker Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #0A0A0A;
+  --bg-2: #0F0F0F;
+  --card: #141414;
+  --card-hover: #1A1A1A;
+  --border: #1F1F1F;
+  --border-hover: #2A2A2A;
+  --text: #FFFFFF;
+  --text-2: #A0A0A0;
+  --text-3: #666666;
+  --text-4: #444444;
+  --accent: #00D26A;
+  --accent-hover: #00E876;
+  --accent-dim: rgba(0, 210, 106, 0.1);
+  --accent-border: rgba(0, 210, 106, 0.2);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+::selection { background: var(--accent); color: var(--bg); }
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10,10,10,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--text);
+}
+.nav-logo {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 900;
+}
+.nav-links {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.nav-link {
+  padding: 8px 14px;
+  color: var(--text-2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.nav-link:hover {
+  color: var(--text);
+  background: var(--card);
+}
+.nav-link.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.nav-cta {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: var(--bg) !important;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+  margin-left: 8px;
+}
+.nav-cta:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* PAGE CONTENT */
+main {
+  flex: 1;
+  padding: 60px 0;
+}
+
+/* HEADINGS */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.page-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+.page-subtitle {
+  font-size: 18px;
+  color: var(--text-2);
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 210, 106, 0.3);
+}
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  margin-top: auto;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-left {
+  color: var(--text-3);
+  font-size: 13px;
+}
+.footer-left strong {
+  color: var(--text-2);
+}
+.footer-left span {
+  color: var(--accent);
+  font-weight: 700;
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-links a {
+  color: var(--text-3);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 640px) {
+  .page-title { font-size: 32px; }
+  .nav-link:not(.nav-cta) { display: none; }
+}
+.install-list {
+  max-width: 720px;
+}
+.install-step {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.install-step:last-child {
+  border-bottom: none;
+}
+.install-num {
+  width: 36px;
+  height: 36px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.install-body h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.install-body p {
+  color: var(--text-2);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+.code-block {
+  display: inline-block;
+  padding: 8px 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: all;
+}
+.code-block:hover {
+  border-color: var(--accent-border);
+  background: var(--card);
+}
+.code-block.copied {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+.download-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.download-inline:hover {
+  background: var(--accent-hover);
+}
+
+.done-box {
+  margin-top: 60px;
+  padding: 32px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  text-align: center;
+}
+.done-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+.done-box h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.done-box p {
+  color: var(--text-2);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.faq-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.faq-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+.faq-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-item h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.faq-item p {
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 12px 20px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1000;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">⚡</div>
+      <span>CodeTracker Pro</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link ">Home</a>
+      <a href="features.html" class="nav-link ">Features</a>
+      <a href="install.html" class="nav-link active">Install</a>
+      <a href="team.html" class="nav-link ">Team</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="nav-cta">Download</a>
+    </div>
+  </div>
+</nav>
+<main>
+<div class="container">
+  <h1 class="page-title">Installation</h1>
+  <p class="page-subtitle">Get CodeTracker Pro running on Chrome in under 2 minutes.</p>
+
+  <div class="install-list">
+    <div class="install-step">
+      <div class="install-num">01</div>
+      <div class="install-body">
+        <h4>Download the ZIP</h4>
+        <p>Grab the latest release from GitHub.</p>
+        <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases/latest" class="download-inline">
+          ⬇ Download Latest
+        </a>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-num">02</div>
+      <div class="install-body">
+        <h4>Extract the files</h4>
+        <p>Right-click the downloaded ZIP and select Extract All. Remember where you extracted it.</p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-num">03</div>
+      <div class="install-body">
+        <h4>Open Chrome Extensions</h4>
+        <p>Paste this URL in Chrome address bar (click to copy):</p>
+        <div class="code-block" onclick="copyText('chrome://extensions/', this)">chrome://extensions/</div>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-num">04</div>
+      <div class="install-body">
+        <h4>Enable Developer Mode</h4>
+        <p>Toggle the switch in top-right corner of the Extensions page.</p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-num">05</div>
+      <div class="install-body">
+        <h4>Load Unpacked</h4>
+        <p>Click the Load Unpacked button that appears. Select the extracted folder from step 2.</p>
+      </div>
+    </div>
+
+    <div class="install-step">
+      <div class="install-num">06</div>
+      <div class="install-body">
+        <h4>Pin the extension</h4>
+        <p>Click the puzzle icon in Chrome toolbar. Pin CodeTracker Pro so it's always visible.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="done-box">
+    <div class="done-icon">✓</div>
+    <h3>You're all set!</h3>
+    <p>Open LeetCode or HackerRank and start solving. Extension will track everything automatically.</p>
+    <a href="https://github.com/aaritdhingra/CodeTracker-Pro" class="btn btn-secondary">Star on GitHub</a>
+  </div>
+
+  <div class="faq-section">
+    <h2 class="faq-title">Common Issues</h2>
+    <div class="faq-item">
+      <h4>Extension not detecting my solves?</h4>
+      <p>Close all LeetCode/HackerRank tabs and open a fresh one. Extension only counts on Submit button (not Run Code).</p>
+    </div>
+    <div class="faq-item">
+      <h4>Notifications not working?</h4>
+      <p>Enable Chrome notifications in Windows Settings and check reminder time is set correctly in extension Settings tab.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Data got reset?</h4>
+      <p>Auto-backup runs every 10 seconds. Data restores automatically if wiped accidentally.</p>
+    </div>
+    <div class="faq-item">
+      <h4>How to uninstall?</h4>
+      <p>Go to chrome://extensions/ and click Remove on CodeTracker Pro. All local data will be cleared.</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ Copied to clipboard</div>
+
+<script>
+function copyText(text, el) {
+  navigator.clipboard.writeText(text).then(() => {
+    el.classList.add('copied');
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+      el.classList.remove('copied');
+      toast.classList.remove('show');
+    }, 1800);
+  });
+}
+</script>
+</main>
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">
+      Built by <strong>Aarit Dhingra</strong> · <span>WEBSPRYX</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro">GitHub</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/releases">Releases</a>
+      <a href="https://github.com/aaritdhingra/CodeTracker-Pro/issues">Issues</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
