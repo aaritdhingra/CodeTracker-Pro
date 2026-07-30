@@ -10,7 +10,7 @@
 
 <br>
 
-[![Version](https://img.shields.io/badge/version-1.1.0-6366F1?style=for-the-badge&labelColor=000)](../../releases/latest)
+[![Version](https://img.shields.io/badge/version-1.2.0-6366F1?style=for-the-badge&labelColor=000)](../../releases/latest)
 [![Chrome](https://img.shields.io/badge/Chrome-Extension-F59E0B?style=for-the-badge&logo=googlechrome&logoColor=white&labelColor=000)](https://chrome.google.com/)
 [![License](https://img.shields.io/badge/License-Proprietary-EF4444?style=for-the-badge&labelColor=000)](LICENSE)
 [![Made in India](https://img.shields.io/badge/Made%20in-India%20🇮🇳-22C55E?style=for-the-badge&labelColor=000)](https://github.com/aaritdhingra)
@@ -226,6 +226,7 @@ Settings tab → **Reset All** → Confirm twice
 **Presented by WEBSPRYX**
 
 </div>
+
 
 
 
